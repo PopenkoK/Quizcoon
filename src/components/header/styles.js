@@ -34,7 +34,7 @@ export const UserButton = styled.button`
 export const Popup = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 60px;
+  gap: 30px;
   position: absolute;
   top: 70px; /* Розташування нижче хедера */
   right: 20px; /* Розташування попапу біля правого краю */

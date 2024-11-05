@@ -32,23 +32,42 @@ const SignUp = () => {
     <SignUpTextContainer>
       <FormWrapper>
         <h2>Welcome</h2>
-        {error && <p>{error}</p>}
-        <InputContainer placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} />
-        <InputContainer placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+        {error && <p data-cy="error-message">{error}</p>}
         <InputContainer
+          data-cy="name-input"
+          placeholder="Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+        <InputContainer
+          data-cy="email-input"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <InputContainer
+          data-cy="password-input"
           type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
         <InputContainer
+          data-cy="confirm-password-input"
           type="password"
           placeholder="Confirm password"
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
         />
-        <Button onClick={handleSignUp}>Sign Up</Button>
-        <LoginText>Already have an account? {<Link to={'/sign-in'}>Sign in</Link>}</LoginText>
+        <Button data-cy="submit-button" onClick={handleSignUp}>
+          Sign Up
+        </Button>
+        <LoginText>
+          Already have an account?{' '}
+          <Link to={'/sign-in'} data-cy="sign-in-link">
+            Sign in
+          </Link>
+        </LoginText>
       </FormWrapper>
     </SignUpTextContainer>
   );

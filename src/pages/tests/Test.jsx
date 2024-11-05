@@ -41,27 +41,27 @@ const Test = () => {
     fetchQuiz();
   }, [id]);
 
-  if (isLoading) return <p>О курва загрузка</p>;
+  if (isLoading) return <p>Loading...</p>;
 
   const { questions = [], cards = [] } = quiz;
 
   const handleToggle = () => {
     setIsChecked(!isChecked);
-    setIsFlipped(false); // Reset flip state when switching views
-    setCurrentSlide(1); // Reset slide position
-    setScore(null); // Reset score
-    setShowAnswers(false); // Reset show answers
+    setIsFlipped(false);
+    setCurrentSlide(1);
+    setScore(null);
+    setShowAnswers(false);
   };
 
   const handleNext = () => {
     const maxSlides = isChecked ? questions.length : cards.length;
     if (currentSlide < maxSlides) setCurrentSlide(currentSlide + 1);
-    setShowAnswers(false); // Reset show answers when navigating
+    setShowAnswers(false);
   };
 
   const handlePrevious = () => {
     if (currentSlide > 1) setCurrentSlide(currentSlide - 1);
-    setShowAnswers(false); // Reset show answers when navigating
+    setShowAnswers(false);
   };
 
   const flipCard = () => {
@@ -88,12 +88,12 @@ const Test = () => {
 
   return (
     <PageContainer>
-      <Header>{quiz.title}</Header>
+      <Header data-cy="quiz-title">{quiz.title}</Header>
       <SwitchContainer>
-        <ToggleButton active={!isChecked} onClick={handleToggle}>
+        <ToggleButton data-cy="toggle-cards" active={!isChecked} onClick={handleToggle}>
           Cards
         </ToggleButton>
-        <ToggleButton active={isChecked} onClick={handleToggle}>
+        <ToggleButton data-cy="toggle-test" active={isChecked} onClick={handleToggle}>
           Test
         </ToggleButton>
       </SwitchContainer>
@@ -101,11 +101,11 @@ const Test = () => {
       <ContentContainer>
         {isChecked ? (
           <>
-            <p>
+            <p data-cy="progress-counter">
               {currentSlide}/{questions.length}
             </p>
             <WhiteContainer>
-              <QuestionContainer>
+              <QuestionContainer data-cy="question-container">
                 <QuestionText>{questions[currentSlide - 1].question}</QuestionText>
                 {questions[currentSlide - 1].options.map((option, index) => {
                   const isCorrect = option === questions[currentSlide - 1].correctAnswer;
@@ -119,7 +119,7 @@ const Test = () => {
                     : {};
 
                   return (
-                    <Option key={index} style={optionStyle}>
+                    <Option key={index} data-cy={`option-${index}`} style={optionStyle}>
                       <input
                         type="radio"
                         id={`option${index}`}
@@ -137,12 +137,11 @@ const Test = () => {
             </WhiteContainer>
           </>
         ) : (
-          // Cards View
           <div>
-            <p>
+            <p data-cy="progress-counter">
               {currentSlide}/{cards.length}
             </p>
-            <CardContainer onClick={flipCard} $isFlipped={isFlipped}>
+            <CardContainer data-cy="card-container" onClick={flipCard} $isFlipped={isFlipped}>
               <Card $isFlipped={isFlipped}>
                 <CardFront>{cards[currentSlide - 1].question}</CardFront>
                 <CardBack>{cards[currentSlide - 1].answer}</CardBack>
@@ -151,10 +150,11 @@ const Test = () => {
           </div>
         )}
 
-        <NavButton onClick={handlePrevious} disabled={currentSlide === 1} $position="left">
+        <NavButton data-cy="nav-button-left" onClick={handlePrevious} disabled={currentSlide === 1} $position="left">
           ◀
         </NavButton>
         <NavButton
+          data-cy="nav-button-right"
           onClick={handleNext}
           $position="right"
           disabled={isChecked ? currentSlide === questions.length : currentSlide === cards.length}
@@ -164,8 +164,10 @@ const Test = () => {
 
         {isChecked && (
           <div>
-            <FooterButton onClick={handleFinish}>Finish</FooterButton>
-            <FooterButton onClick={handleShowAnswers} disabled={!answers[currentSlide - 1]}>
+            <FooterButton data-cy="finish-button" onClick={handleFinish}>
+              Finish
+            </FooterButton>
+            <FooterButton data-cy="answers-button" onClick={handleShowAnswers} disabled={!answers[currentSlide - 1]}>
               Answers
             </FooterButton>
           </div>
@@ -173,7 +175,7 @@ const Test = () => {
 
         {score !== null && (
           <div>
-            <p>
+            <p data-cy="score-display">
               Your score: {score}/{questions.length}
             </p>
           </div>

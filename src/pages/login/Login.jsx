@@ -25,16 +25,29 @@ const Login = () => {
     <LoginContainer>
       <FormWrapper>
         <h2>Welcome back</h2>
-        {error && <p>{error}</p>}
-        <InputContainer placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+        {error && <p data-cy="error-message">{error}</p>}
         <InputContainer
+          data-cy="email-input"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <InputContainer
+          data-cy="password-input"
           type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <Button onClick={handleLogin}>Login</Button>
-        <SignUpText>Dont have an account? {<Link to={'/sign-up'}>Sign up</Link>}</SignUpText>
+        <Button data-cy="submit-button" onClick={handleLogin}>
+          Login
+        </Button>
+        <SignUpText>
+          Don&apos;t have an account?{' '}
+          <Link to={'/sign-up'} data-cy="sign-up-link">
+            Sign up
+          </Link>
+        </SignUpText>
       </FormWrapper>
     </LoginContainer>
   );

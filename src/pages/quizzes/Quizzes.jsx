@@ -20,13 +20,13 @@ const Quizzes = () => {
     fetch();
   }, []);
 
-  if (isLoading) return <p>О курва загрузка</p>;
+  if (isLoading) return <p>Loading...</p>;
   return (
     <QuizzesContainer>
-      <h1>Quizzes</h1>
-      <div>
+      <h1 data-cy={'home-title'}>Quizzes</h1>
+      <div data-cy={'quizzes-grid'}>
         {quizzes.map((quiz) => (
-          <Button key={quiz._id} onClick={() => navigate(`/test/${quiz._id}`)}>
+          <Button key={quiz._id} onClick={() => navigate(`/test/${quiz._id}`)} data-cy={'quiz-button'}>
             {quiz.title}
           </Button>
         ))}
