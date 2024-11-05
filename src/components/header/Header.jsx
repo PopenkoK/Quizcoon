@@ -48,9 +48,12 @@ const Header = () => {
   const handleQuizzes = () => {
     navigate('/');
   };
+  const handleAbout = () => {
+    navigate('/about-us');
+  };
 
   return (
-    <HeaderContainer>
+    <HeaderContainer data-cy={'header-container'}>
       <Link to={'/'}>
         <LogoContainer>
           <img src={Logo} alt="Logo" />
@@ -63,7 +66,9 @@ const Header = () => {
         </UserButton>
       ) : (
         <div>
-          <Button onClick={() => navigate('/sign-in')}>Log in</Button>
+          <Button onClick={() => navigate('/sign-in')} data-cy={'login-button'}>
+            Log in
+          </Button>
         </div>
       )}
       {showPopup && (
@@ -78,6 +83,7 @@ const Header = () => {
           <ActionsList>
             <Button onClick={handleQuizzes}>My quizzes</Button>
             <Button>Create quiz</Button>
+            <Button onClick={handleAbout}>About Us</Button>
             <Button onClick={handleLogOut}>Log out</Button>
           </ActionsList>
         </Popup>
